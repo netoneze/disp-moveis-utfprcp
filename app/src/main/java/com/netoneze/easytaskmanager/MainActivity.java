@@ -1,4 +1,4 @@
-package com.example.easytaskmanager;
+package com.netoneze.easytaskmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
