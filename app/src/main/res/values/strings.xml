@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Easy Task Manager</string>
+    <string name="titulo">Título</string>
+    <string name="limpar">Limpar</string>
+    <string name="erro_campo_vazio">Existe(m) campo(s) vazio(s)!</string>
+    <string name="campos_limpos">Campos Limpos!</string>
+    <string name="quando">Quando</string>
+    <string name="onde">Onde</string>
 </resources>
