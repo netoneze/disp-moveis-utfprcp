@@ -8,4 +8,8 @@
     <string name="onde">Onde</string>
     <string name="diaInteiro">Dia inteiro</string>
     <string name="descricao">Descrição</string>
+    <string name="periodo">Período</string>
+    <string name="periodoManha">Manhã</string>
+    <string name="periodoTarde">Tarde</string>
+    <string name="periodoNoite">Noite</string>
 </resources>
