@@ -6,4 +6,6 @@
     <string name="campos_limpos">Campos Limpos!</string>
     <string name="quando">Quando</string>
     <string name="onde">Onde</string>
+    <string name="diaInteiro">Dia inteiro</string>
+    <string name="descricao">Descrição</string>
 </resources>
