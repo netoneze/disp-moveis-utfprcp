@@ -2,7 +2,7 @@
     <string name="app_name">Easy Task Manager</string>
     <string name="titulo">Título</string>
     <string name="limpar">Limpar</string>
-    <string name="erro_campo_vazio">Existe(m) campo(s) vazio(s)!</string>
+    <string name="erro_campo_vazio">Existe(m) campo(s) vazio(s). \n Preencha-os!</string>
     <string name="campos_limpos">Campos Limpos!</string>
     <string name="quando">Quando</string>
     <string name="onde">Onde</string>
@@ -12,4 +12,8 @@
     <string name="periodoManha">Manhã</string>
     <string name="periodoTarde">Tarde</string>
     <string name="periodoNoite">Noite</string>
+    <string name="prioridadeSpinner">Prioridade</string>
+    <string name="radioButtonNaoSelecionado">Nenhum RadioButton Selecionado!</string>
+    <string name="mostrar">Mostrar</string>
+    <string name="salvar">Salvar</string>
 </resources>
