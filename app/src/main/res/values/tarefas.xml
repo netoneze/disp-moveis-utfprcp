@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="titulo">
+        <item>@string/tarefa_1</item>
+        <item>@string/tarefa_2</item>
+        <item>@string/tarefa_3</item>
+        <item>@string/tarefa_4</item>
+        <item>@string/tarefa_5</item>
+        <item>@string/tarefa_6</item>
+        <item>@string/tarefa_7</item>
+        <item>@string/tarefa_8</item>
+    </string-array>
+
+    <string-array name="local">
+        <item>@string/tarefa_1_local</item>
+        <item>@string/tarefa_2_local</item>
+        <item>@string/tarefa_3_local</item>
+        <item>@string/tarefa_4_local</item>
+        <item>@string/tarefa_5_local</item>
+        <item>@string/tarefa_6_local</item>
+        <item>@string/tarefa_7_local</item>
+        <item>@string/tarefa_8_local</item>
+    </string-array>
+
+    <string-array name="descricao">
+        <item>@string/tarefa_1_descricao</item>
+        <item>@string/tarefa_2_descricao</item>
+        <item>@string/tarefa_3_descricao</item>
+        <item>@string/tarefa_4_descricao</item>
+        <item>@string/tarefa_5_descricao</item>
+        <item>@string/tarefa_6_descricao</item>
+        <item>@string/tarefa_7_descricao</item>
+        <item>@string/tarefa_8_descricao</item>
+    </string-array>
+
+    <string-array name="prioridade">
+        <item>@string/prioridade_baixa</item>
+        <item>@string/prioridade_alta</item>
+        <item>@string/prioridade_baixa</item>
+        <item>@string/prioridade_media</item>
+        <item>@string/prioridade_baixa</item>
+        <item>@string/prioridade_baixa</item>
+        <item>@string/prioridade_alta</item>
+        <item>@string/prioridade_baixa</item>
+    </string-array>
+
+    <string-array name="periodo">
+        <item>@string/periodoManha</item>
+        <item>@string/periodoManha</item>
+        <item>@string/periodoTarde</item>
+        <item>@string/periodoManha</item>
+        <item>@string/periodoNoite</item>
+        <item>@string/periodoManha</item>
+        <item>@string/periodoTarde</item>
+        <item>@string/periodoNoite</item>
+    </string-array>
+
+    <string-array name="data">
+        <item>@string/data_3</item>
+        <item>@string/data_1</item>
+        <item>@string/data_2</item>
+        <item>@string/data_1</item>
+        <item>@string/data_1</item>
+        <item>@string/data_3</item>
+        <item>@string/data_1</item>
+        <item>@string/data_2</item>
+    </string-array>
+</resources>
