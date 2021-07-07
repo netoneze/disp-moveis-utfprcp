@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
     public void populaSpinner(){
         ArrayList<String> lista = new ArrayList<>();
 
-        lista.add("Baixa");
-        lista.add("Média");
-        lista.add("Alta");
+        lista.add(getString(R.string.prioridade_baixa));
+        lista.add(getString(R.string.prioridade_media));
+        lista.add(getString(R.string.prioridade_alta));
 
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lista);
