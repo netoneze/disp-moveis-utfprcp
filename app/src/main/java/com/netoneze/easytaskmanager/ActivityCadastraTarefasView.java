@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityCadastraTarefasView extends AppCompatActivity {
 
     private EditText editTextTitulo, editTextData, editTextLocal, editTextDescricao;
     private CheckBox cbDiaInteiro;

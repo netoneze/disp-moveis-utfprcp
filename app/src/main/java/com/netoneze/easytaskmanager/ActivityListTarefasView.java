@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class ActivityListView extends AppCompatActivity {
+public class ActivityListTarefasView extends AppCompatActivity {
 
     ListView listViewTarefas;
 
@@ -51,7 +51,7 @@ public class ActivityListView extends AppCompatActivity {
     }
 
     public void vaiParaTelaDeCadastro(View view){
-        Intent intentCadastro = new Intent(this, MainActivity.class);
+        Intent intentCadastro = new Intent(this, ActivityCadastraTarefasView.class);
 
         startActivity(intentCadastro);
     }
