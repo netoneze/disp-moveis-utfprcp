@@ -2,6 +2,9 @@ package com.netoneze.easytaskmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -22,6 +25,9 @@ public class ActivityListTarefasView extends AppCompatActivity {
     public static final String DATA = "DATA";
     public static final String DIA_TODO = "DIA_TODO";
     public static final int PEDIR_CADASTRO = 1;
+
+    private final ArrayList<Tarefa> tarefas = new ArrayList<>();
+    private ArrayAdapter<Tarefa> adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +51,11 @@ public class ActivityListTarefasView extends AppCompatActivity {
         String[] periodo = getResources().getStringArray(R.array.periodo);
         String[] data = getResources().getStringArray(R.array.data);
 
-        ArrayList<Tarefa> tarefas = new ArrayList<>();
-
         for(int count = 0 ; count < titulo.length ; count++){
-            tarefas.add(new Tarefa(titulo[count], local[count], descricao[count], prioridade[count], periodo[count], data[count]));
+            this.tarefas.add(new Tarefa(titulo[count], local[count], descricao[count], prioridade[count], periodo[count], data[count]));
         }
 
-        ArrayAdapter<Tarefa> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tarefas);
+        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tarefas);
 
         listViewTarefas.setAdapter(adapter);
 
@@ -61,5 +65,54 @@ public class ActivityListTarefasView extends AppCompatActivity {
         Intent intentCadastro = new Intent(this, ActivityCadastraTarefasView.class);
 
         startActivityForResult(intentCadastro, PEDIR_CADASTRO);
+    }
+
+    public void vaiParaTelaDeAutoria(View view){
+        Intent intentAutoria = new Intent(this, ActivityAutoriaView.class);
+
+        startActivity(intentAutoria);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == PEDIR_CADASTRO && resultCode == RESULT_OK){
+            assert data != null;
+            Bundle bundle = data.getExtras();
+
+            if(bundle != null) {
+                String titulo = bundle.getString(TITULO);
+                String local = bundle.getString(LOCAL);
+                String descricao = bundle.getString(DESCRICAO);
+                String prioridade = bundle.getString(PRIORIDADE);
+                String periodo = bundle.getString(PERIODO);
+                String data_tarefa = bundle.getString(DATA);
+                String dia_todo = bundle.getString(DIA_TODO);
+
+                this.tarefas.add(new Tarefa(titulo, local, descricao, prioridade, periodo, data_tarefa));
+                this.adapter.notifyDataSetChanged();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_top_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.sobre_botao_menu) {
+            vaiParaTelaDeAutoria(this.findViewById(R.id.content_frame));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
