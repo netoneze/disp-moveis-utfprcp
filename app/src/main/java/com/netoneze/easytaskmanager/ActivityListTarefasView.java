@@ -14,8 +14,15 @@ import java.util.ArrayList;
 public class ActivityListTarefasView extends AppCompatActivity {
 
     ListView listViewTarefas;
+    public static final String TITULO = "TITULO";
+    public static final String LOCAL = "LOCAL";
+    public static final String DESCRICAO = "DESCRICAO";
+    public static final String PRIORIDADE = "PRIORIDADE";
+    public static final String PERIODO = "PERIODO";
+    public static final String DATA = "DATA";
+    public static final String DIA_TODO = "DIA_TODO";
+    public static final int PEDIR_CADASTRO = 1;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
@@ -53,6 +60,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
     public void vaiParaTelaDeCadastro(View view){
         Intent intentCadastro = new Intent(this, ActivityCadastraTarefasView.class);
 
-        startActivity(intentCadastro);
+        startActivityForResult(intentCadastro, PEDIR_CADASTRO);
     }
 }

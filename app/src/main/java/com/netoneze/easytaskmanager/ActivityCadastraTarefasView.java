@@ -1,5 +1,7 @@
 package com.netoneze.easytaskmanager;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -62,13 +64,13 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         spinnerPrioridade.setAdapter(adapter);
     }
 
-    public void mostrarConteudo (View view){
+    public void salvarConteudo(View view){
         String titulo = editTextTitulo.getText().toString();
         String data = editTextData.getText().toString();
         String local = editTextLocal.getText().toString();
         String descricao = editTextDescricao.getText().toString();
         Boolean checkBoxDiaInteiro = cbDiaInteiro.isChecked();
-        Integer radioGroupPeriodoId = radioGroupPeriodo.getCheckedRadioButtonId();
+        int radioGroupPeriodoId = radioGroupPeriodo.getCheckedRadioButtonId();
         String spinner = spinnerPrioridade.getSelectedItem().toString();
 
         if (titulo == null || titulo.trim().isEmpty() ||
@@ -85,30 +87,28 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
             return;
         }
 
-       String mensagem  = getString(R.string.titulo) + ": " + titulo + "\n" +
-                getString(R.string.quando) + ": " + data + "\n" +
-                getString(R.string.onde) + ": " + local + "\n" +
-                getString(R.string.descricao) + ": " + descricao + "\n" +
-                getString(R.string.diaInteiro) + ": " + checkBoxDiaInteiro + "\n" +
-                getString(R.string.prioridadeSpinner) + ": " + spinner + "\n";
+        Intent intentListagem = new Intent(this, ActivityListTarefasView.class);
 
+        intentListagem.putExtra(ActivityListTarefasView.TITULO, titulo);
+        intentListagem.putExtra(ActivityListTarefasView.DATA, data);
+        intentListagem.putExtra(ActivityListTarefasView.LOCAL, local);
+        intentListagem.putExtra(ActivityListTarefasView.DESCRICAO, descricao);
+        intentListagem.putExtra(ActivityListTarefasView.PRIORIDADE, spinner);
+        intentListagem.putExtra(ActivityListTarefasView.DIA_TODO, checkBoxDiaInteiro);
+        intentListagem.putExtra(ActivityListTarefasView.PERIODO, radioGroupPeriodoId);
 
-        switch(radioGroupPeriodo.getCheckedRadioButtonId()){
-            case R.id.radioButtonPeriodoManha:
-                mensagem += getString(R.string.periodo) + ": " + getString(R.string.periodoManha);
-                break;
+        setResult(Activity.RESULT_OK, intentListagem);
 
-            case R.id.radioButtonPeriodoTarde:
-                mensagem += getString(R.string.periodo) + ": " + getString(R.string.periodoTarde);
-                break;
-
-            case R.id .radioButtonPeriodoNoite:
-                mensagem += getString(R.string.periodo) + ": " + getString(R.string.periodoNoite);
-                break;
-
-        }
-
-        Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+        finish();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        setResult(Activity.RESULT_CANCELED);
+
+        finish();
+
+        super.onBackPressed();
+    }
 }
