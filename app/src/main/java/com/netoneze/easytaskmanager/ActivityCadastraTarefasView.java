@@ -71,6 +71,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         String descricao = editTextDescricao.getText().toString();
         Boolean checkBoxDiaInteiro = cbDiaInteiro.isChecked();
         int radioGroupPeriodoId = radioGroupPeriodo.getCheckedRadioButtonId();
+        String radioGroupPeriodo = "";
         String spinner = spinnerPrioridade.getSelectedItem().toString();
 
         if (titulo == null || titulo.trim().isEmpty() ||
@@ -87,6 +88,19 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
             return;
         }
 
+        switch (radioGroupPeriodoId) {
+            case R.id.radioButtonPeriodoManha:
+                radioGroupPeriodo = getString(R.string.periodoManha);
+                break;
+            case R.id.radioButtonPeriodoTarde:
+                radioGroupPeriodo = getString(R.string.periodoTarde);
+                break;
+            case R.id.radioButtonPeriodoNoite:
+                radioGroupPeriodo = getString(R.string.periodoNoite);
+                break;
+        }
+
+
         Intent intentListagem = new Intent(this, ActivityListTarefasView.class);
 
         intentListagem.putExtra(ActivityListTarefasView.TITULO, titulo);
@@ -95,7 +109,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         intentListagem.putExtra(ActivityListTarefasView.DESCRICAO, descricao);
         intentListagem.putExtra(ActivityListTarefasView.PRIORIDADE, spinner);
         intentListagem.putExtra(ActivityListTarefasView.DIA_TODO, checkBoxDiaInteiro);
-        intentListagem.putExtra(ActivityListTarefasView.PERIODO, radioGroupPeriodoId);
+        intentListagem.putExtra(ActivityListTarefasView.PERIODO, radioGroupPeriodo);
 
         setResult(Activity.RESULT_OK, intentListagem);
 
