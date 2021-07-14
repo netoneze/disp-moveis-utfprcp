@@ -44,17 +44,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
     }
 
     public void populaLista(){
-        String[] titulo = getResources().getStringArray(R.array.titulo);
-        String[] local = getResources().getStringArray(R.array.local);
-        String[] descricao = getResources().getStringArray(R.array.descricao);
-        String[] prioridade = getResources().getStringArray(R.array.prioridade);
-        String[] periodo = getResources().getStringArray(R.array.periodo);
-        String[] data = getResources().getStringArray(R.array.data);
-
-        for(int count = 0 ; count < titulo.length ; count++){
-            this.tarefas.add(new Tarefa(titulo[count], local[count], descricao[count], prioridade[count], periodo[count], data[count]));
-        }
-
         this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tarefas);
 
         listViewTarefas.setAdapter(adapter);
