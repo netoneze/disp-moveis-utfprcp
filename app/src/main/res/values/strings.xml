@@ -53,4 +53,5 @@
     <string name="descricao_autor_autoria">"  A aplicação foi idealizada pelo aluno Nelson Antonio Neto Toneze, para a disciplina de Programação para Dispositivos Móveis, ministrada pelo professor Alexandre Romolo Moreira Feitosa."</string>
     <string name="nome_utfpr">Universidade Tecnológica Federal do Paraná</string>
     <string name="campus_utfpr">Campus Cornélio Procópio</string>
+    <string name="cadastrar_tarefa">Cadastrar tarefa</string>
 </resources>

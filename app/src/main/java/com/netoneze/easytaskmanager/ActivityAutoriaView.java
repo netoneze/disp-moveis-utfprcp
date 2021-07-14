@@ -9,6 +9,7 @@ public class ActivityAutoriaView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getString(R.string.sobre));
         setContentView(R.layout.activity_autoria_view);
     }
 }

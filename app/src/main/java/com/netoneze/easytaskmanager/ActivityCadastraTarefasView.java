@@ -25,6 +25,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getString(R.string.cadastrar_tarefa));
         setContentView(R.layout.activity_main);
 
         editTextTitulo = findViewById(R.id.editTextTitulo);
