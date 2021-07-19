@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -50,13 +49,13 @@ public class ActivityListTarefasView extends AppCompatActivity {
 
     }
 
-    public void vaiParaTelaDeCadastro(View view){
+    public void vaiParaTelaDeCadastro(MenuItem item){
         Intent intentCadastro = new Intent(this, ActivityCadastraTarefasView.class);
 
         startActivityForResult(intentCadastro, PEDIR_CADASTRO);
     }
 
-    public void vaiParaTelaDeAutoria(View view){
+    public void vaiParaTelaDeAutoria(MenuItem item){
         Intent intentAutoria = new Intent(this, ActivityAutoriaView.class);
 
         startActivity(intentAutoria);
@@ -90,14 +89,14 @@ public class ActivityListTarefasView extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_top_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.sobre_botao_menu) {
+        if (id == R.id.adicionar_botao_menu) {
             vaiParaTelaDeAutoria(this.findViewById(R.id.content_frame));
             return true;
         }
