@@ -2,9 +2,12 @@ package com.netoneze.easytaskmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ public class ActivityListTarefasView extends AppCompatActivity {
     public static final String DATA = "DATA";
     public static final String DIA_TODO = "DIA_TODO";
     public static final int PEDIR_CADASTRO = 1;
+    public static final int ALTERAR_CADASTRO = 2;
 
     private final ArrayList<Tarefa> tarefas = new ArrayList<>();
     private ArrayAdapter<Tarefa> adapter;
@@ -38,6 +42,8 @@ public class ActivityListTarefasView extends AppCompatActivity {
             Tarefa tarefa = (Tarefa) listViewTarefas.getItemAtPosition(position);
             Toast.makeText(getApplicationContext(), tarefa.getTitulo() + getString(R.string.foi_clicado), Toast.LENGTH_LONG).show();
         });
+
+        registerForContextMenu(listViewTarefas);
 
         populaLista();
     }
@@ -55,11 +61,54 @@ public class ActivityListTarefasView extends AppCompatActivity {
         startActivityForResult(intentCadastro, PEDIR_CADASTRO);
     }
 
+    public void vaiParaTelaDeCadastroEditar(MenuItem item){
+        Intent intentCadastro = new Intent(this, ActivityCadastraTarefasView.class);
+
+        startActivityForResult(intentCadastro, ALTERAR_CADASTRO);
+    }
+
     public void vaiParaTelaDeAutoria(MenuItem item){
         Intent intentAutoria = new Intent(this, ActivityAutoriaView.class);
 
         startActivity(intentAutoria);
     }
+
+    public void adicionar(Bundle bundle){
+
+        String titulo = bundle.getString(TITULO);
+        String local = bundle.getString(LOCAL);
+        String descricao = bundle.getString(DESCRICAO);
+        String prioridade = bundle.getString(PRIORIDADE);
+        String periodo = bundle.getString(PERIODO);
+        String data_tarefa = bundle.getString(DATA);
+        String dia_todo = bundle.getString(DIA_TODO);
+
+        this.tarefas.add(new Tarefa(titulo, local, descricao, prioridade, periodo, data_tarefa));
+
+        this.adapter.notifyDataSetChanged();
+
+    }
+
+    private void alterar(int posicao){
+        String titulo = adapter.getItem(posicao).getTitulo();
+        String local = adapter.getItem(posicao).getLocal();
+        String descricao = adapter.getItem(posicao).getDescricao();
+        String prioridade = adapter.getItem(posicao).getPrioridade();
+        String periodo = adapter.getItem(posicao).getPeriodo();
+        String data_tarefa = adapter.getItem(posicao).getData();
+
+        Intent intentAlterarCadastro = new Intent(this, ActivityCadastraTarefasView.class);
+
+        intentAlterarCadastro.putExtra(TITULO, titulo);
+        intentAlterarCadastro.putExtra(LOCAL, local);
+        intentAlterarCadastro.putExtra(DESCRICAO, descricao);
+        intentAlterarCadastro.putExtra(PRIORIDADE, prioridade);
+        intentAlterarCadastro.putExtra(PERIODO, periodo);
+        intentAlterarCadastro.putExtra(DATA, data_tarefa);
+
+        startActivityForResult(intentAlterarCadastro, ALTERAR_CADASTRO);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -69,20 +118,40 @@ public class ActivityListTarefasView extends AppCompatActivity {
             Bundle bundle = data.getExtras();
 
             if(bundle != null) {
-                String titulo = bundle.getString(TITULO);
-                String local = bundle.getString(LOCAL);
-                String descricao = bundle.getString(DESCRICAO);
-                String prioridade = bundle.getString(PRIORIDADE);
-                String periodo = bundle.getString(PERIODO);
-                String data_tarefa = bundle.getString(DATA);
-                String dia_todo = bundle.getString(DIA_TODO);
-
-                this.tarefas.add(new Tarefa(titulo, local, descricao, prioridade, periodo, data_tarefa));
-                this.adapter.notifyDataSetChanged();
+                adicionar(bundle);
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info;
+
+        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch(item.getItemId()){
+
+            case R.id.editar_menu_item:
+                alterar(info.position);
+                return true;
+
+            case R.id.excluir_menu_item:
+//                excluir(info.position);
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_contexto_list_tarefas, menu);
+
+        super.onCreateContextMenu(menu, v, menuInfo);
     }
 
     @Override

@@ -55,4 +55,6 @@
     <string name="nome_utfpr">Universidade Tecnológica Federal do Paraná</string>
     <string name="campus_utfpr">Campus Cornélio Procópio</string>
     <string name="cadastrar_tarefa">Cadastrar tarefa</string>
+    <string name="editar">Editar</string>
+    <string name="excluir">Excluir</string>
 </resources>

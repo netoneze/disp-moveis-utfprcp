@@ -37,6 +37,28 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         spinnerPrioridade = findViewById(R.id.spinnerPrioridade);
 
         populaSpinner();
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null){
+            String titulo = bundle.getString(ActivityListTarefasView.TITULO);
+            String local = bundle.getString(ActivityListTarefasView.LOCAL);
+            String descricao = bundle.getString(ActivityListTarefasView.DESCRICAO);
+            String prioridade = bundle.getString(ActivityListTarefasView.PRIORIDADE);
+            String periodo = bundle.getString(ActivityListTarefasView.PERIODO);
+            String data_tarefa = bundle.getString(ActivityListTarefasView.DATA);
+
+            editTextTitulo.setText(titulo);
+            editTextLocal.setText(local);
+            editTextDescricao.setText(descricao);
+            editTextData.setText(data_tarefa);
+
+            for(int i = 0 ; i < spinnerPrioridade.getAdapter().getCount() ; i++){
+                if (spinnerPrioridade.getItemAtPosition(i).toString().equals(prioridade)){
+                    spinnerPrioridade.setSelection(i);
+                }
+            }
+        }
     }
 
     public void limparCampos(View view){
