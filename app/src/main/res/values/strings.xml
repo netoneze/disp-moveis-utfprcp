@@ -48,6 +48,7 @@
     <string name="data_2">08/07/2021</string>
     <string name="data_3">15/08/2021</string>
     <string name="sobre">Sobre</string>
+    <string name="adicionar">Adicionar</string>
     <string name="descricao_autoria">"  O aplicativo tem como intuito auxiliar discentes em suas tarefas acadêmicas."</string>
     <string name="titulo_autoria">Sobre o aplicativo</string>
     <string name="descricao_autor_autoria">"  A aplicação foi idealizada pelo aluno Nelson Antonio Neto Toneze, para a disciplina de Programação para Dispositivos Móveis, ministrada pelo professor Alexandre Romolo Moreira Feitosa."</string>
