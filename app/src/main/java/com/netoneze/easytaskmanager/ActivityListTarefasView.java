@@ -28,7 +28,7 @@ public class ActivityListTarefasView extends AppCompatActivity {
     public static final String DIA_TODO = "DIA_TODO";
     public static final int PEDIR_CADASTRO = 1;
     public static final int ALTERAR_CADASTRO = 2;
-
+    public int posic = -1;
     private final ArrayList<Tarefa> tarefas = new ArrayList<>();
     private ArrayAdapter<Tarefa> adapter;
 
@@ -61,10 +61,24 @@ public class ActivityListTarefasView extends AppCompatActivity {
         startActivityForResult(intentCadastro, PEDIR_CADASTRO);
     }
 
-    public void vaiParaTelaDeCadastroEditar(MenuItem item){
-        Intent intentCadastro = new Intent(this, ActivityCadastraTarefasView.class);
+    public void vaiParaTelaDeCadastroEditar(int posicao){
+        String titulo = adapter.getItem(posicao).getTitulo();
+        String local = adapter.getItem(posicao).getLocal();
+        String descricao = adapter.getItem(posicao).getDescricao();
+        String prioridade = adapter.getItem(posicao).getPrioridade();
+        String periodo = adapter.getItem(posicao).getPeriodo();
+        String data_tarefa = adapter.getItem(posicao).getData();
 
-        startActivityForResult(intentCadastro, ALTERAR_CADASTRO);
+        Intent intentAlterarCadastro = new Intent(this, ActivityCadastraTarefasView.class);
+
+        intentAlterarCadastro.putExtra(TITULO, titulo);
+        intentAlterarCadastro.putExtra(LOCAL, local);
+        intentAlterarCadastro.putExtra(DESCRICAO, descricao);
+        intentAlterarCadastro.putExtra(PRIORIDADE, prioridade);
+        intentAlterarCadastro.putExtra(PERIODO, periodo);
+        intentAlterarCadastro.putExtra(DATA, data_tarefa);
+
+        startActivityForResult(intentAlterarCadastro, ALTERAR_CADASTRO);
     }
 
     public void vaiParaTelaDeAutoria(MenuItem item){
@@ -89,24 +103,26 @@ public class ActivityListTarefasView extends AppCompatActivity {
 
     }
 
-    private void alterar(int posicao){
-        String titulo = adapter.getItem(posicao).getTitulo();
-        String local = adapter.getItem(posicao).getLocal();
-        String descricao = adapter.getItem(posicao).getDescricao();
-        String prioridade = adapter.getItem(posicao).getPrioridade();
-        String periodo = adapter.getItem(posicao).getPeriodo();
-        String data_tarefa = adapter.getItem(posicao).getData();
+    public void alterar(int posicao, Bundle bundle){
 
-        Intent intentAlterarCadastro = new Intent(this, ActivityCadastraTarefasView.class);
+        String titulo = bundle.getString(TITULO);
+        String local = bundle.getString(LOCAL);
+        String descricao = bundle.getString(DESCRICAO);
+        String prioridade = bundle.getString(PRIORIDADE);
+        String periodo = bundle.getString(PERIODO);
+        String data_tarefa = bundle.getString(DATA);
+        String dia_todo = bundle.getString(DIA_TODO);
 
-        intentAlterarCadastro.putExtra(TITULO, titulo);
-        intentAlterarCadastro.putExtra(LOCAL, local);
-        intentAlterarCadastro.putExtra(DESCRICAO, descricao);
-        intentAlterarCadastro.putExtra(PRIORIDADE, prioridade);
-        intentAlterarCadastro.putExtra(PERIODO, periodo);
-        intentAlterarCadastro.putExtra(DATA, data_tarefa);
+        this.tarefas.remove(posicao);
+        this.tarefas.add(posicao, new Tarefa(titulo, local, descricao, prioridade, periodo, data_tarefa));
 
-        startActivityForResult(intentAlterarCadastro, ALTERAR_CADASTRO);
+        this.adapter.notifyDataSetChanged();
+
+    }
+
+    private void excluir(int posicao){
+        this.tarefas.remove(posicao);
+        this.adapter.notifyDataSetChanged();
     }
 
 
@@ -121,6 +137,15 @@ public class ActivityListTarefasView extends AppCompatActivity {
                 adicionar(bundle);
             }
         }
+        if (requestCode == ALTERAR_CADASTRO && resultCode == RESULT_OK){
+            assert data != null;
+            Bundle bundle = data.getExtras();
+
+            if(bundle != null) {
+                alterar(this.posic, bundle);
+                this.posic = -1;
+            }
+        }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -130,15 +155,16 @@ public class ActivityListTarefasView extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info;
 
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        this.posic = info.position;
 
         switch(item.getItemId()){
 
             case R.id.editar_menu_item:
-                alterar(info.position);
+                vaiParaTelaDeCadastroEditar(info.position);
                 return true;
 
             case R.id.excluir_menu_item:
-//                excluir(info.position);
+                excluir(info.position);
                 return true;
 
             default:

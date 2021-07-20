@@ -58,6 +58,20 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
                     spinnerPrioridade.setSelection(i);
                 }
             }
+
+            switch (periodo){
+                case "Manhã":
+                    radioGroupPeriodo.check(R.id.radioButtonPeriodoManha);
+                    break;
+                case "Tarde":
+                    radioGroupPeriodo.check(R.id.radioButtonPeriodoTarde);
+                    break;
+                case "Noite":
+                    radioGroupPeriodo.check(R.id.radioButtonPeriodoNoite);
+                    break;
+                default:
+                    radioGroupPeriodo.clearCheck();
+            }
         }
     }
 
