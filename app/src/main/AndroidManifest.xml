@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyTaskManager">
-        <activity android:name=".ActivityAutoriaView"></activity>
+
         <activity android:name=".ActivityListTarefasView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,12 +17,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityCadastraTarefasView">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".ActivityAutoriaView"
+            android:parentActivityName="com.netoneze.easytaskmanager.ActivityListTarefasView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.netoneze.easytaskmanager.ActivityListTarefasView" />
+        </activity>
+
+        <activity android:name=".ActivityCadastraTarefasView"
+            android:parentActivityName="com.netoneze.easytaskmanager.ActivityListTarefasView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.netoneze.easytaskmanager.ActivityListTarefasView" />
         </activity>
     </application>
 
