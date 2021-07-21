@@ -3,7 +3,9 @@ package com.netoneze.easytaskmanager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -11,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -26,7 +29,12 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(getString(R.string.cadastrar_tarefa));
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cadastra_view);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         editTextTitulo = findViewById(R.id.editTextTitulo);
         editTextData = findViewById(R.id.editTextData);
@@ -75,7 +83,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         }
     }
 
-    public void limparCampos(View view){
+    public void limparCampos(MenuItem item){
         editTextTitulo.setText(null);
         editTextData.setText(null);
         editTextLocal.setText(null);
@@ -101,7 +109,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         spinnerPrioridade.setAdapter(adapter);
     }
 
-    public void salvarConteudo(View view){
+    public void salvarConteudo(MenuItem item){
         String titulo = editTextTitulo.getText().toString();
         String data = editTextData.getText().toString();
         String local = editTextLocal.getText().toString();
@@ -153,6 +161,11 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         finish();
     }
 
+    public void cancelar(){
+        setResult(Activity.RESULT_CANCELED);
+        finish();
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -161,5 +174,22 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         finish();
 
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.cadastro_top_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            cancelar();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
