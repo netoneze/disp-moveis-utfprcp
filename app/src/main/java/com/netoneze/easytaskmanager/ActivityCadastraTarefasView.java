@@ -1,7 +1,9 @@
 package com.netoneze.easytaskmanager;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,9 +23,15 @@ import java.util.ArrayList;
 public class ActivityCadastraTarefasView extends AppCompatActivity {
 
     private EditText editTextTitulo, editTextData, editTextLocal, editTextDescricao;
-    private CheckBox cbDiaInteiro;
+    private CheckBox cbDiaInteiro, cbSugestao;
     private RadioGroup radioGroupPeriodo;
     private Spinner spinnerPrioridade;
+    private String tituloSugestao = "";
+    private boolean sugestao = false;
+    private static final String SUGESTAO = "SUGESTAO";
+    private static final String TITULO = "TITULO";
+    private static final String ARQUIVO =
+            "com.netoneze.easytaskmanager.sharedpreferences.PREFERENCIAS_SUGESTAO_CADASTRO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +49,11 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         editTextLocal = findViewById(R.id.editTextOnde);
         editTextDescricao = findViewById(R.id.editTextDescricao);
         cbDiaInteiro = findViewById(R.id.checkBoxDiaInteiro);
+        cbSugestao = findViewById(R.id.checkBoxSugestao);
         radioGroupPeriodo = findViewById(R.id.radioGroupPeriodo);
         spinnerPrioridade = findViewById(R.id.spinnerPrioridade);
+
+        lerPreferenciaSugestao();
 
         populaSpinner();
 
@@ -118,7 +129,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         int radioGroupPeriodoId = radioGroupPeriodo.getCheckedRadioButtonId();
         String radioGroupPeriodo = "";
         String spinner = spinnerPrioridade.getSelectedItem().toString();
-
+        salvarPreferenciaSugestao(cbSugestao.isChecked(), titulo);
         if (titulo == null || titulo.trim().isEmpty() ||
                 data == null || data.trim().isEmpty() ||
                 local == null || local.trim().isEmpty() ||
@@ -164,6 +175,35 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
     public void cancelar(){
         setResult(Activity.RESULT_CANCELED);
         finish();
+    }
+
+    private void salvarPreferenciaSugestao(boolean novoValor, String titulo){
+
+        SharedPreferences shared = getSharedPreferences(ARQUIVO,
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = shared.edit();
+
+        editor.putBoolean(SUGESTAO, novoValor);
+
+        if(novoValor){
+            editor.putString(TITULO, titulo);
+        }
+
+        editor.commit();
+
+        sugestao = novoValor;
+    }
+
+    private void lerPreferenciaSugestao(){
+
+        SharedPreferences shared = getSharedPreferences(ARQUIVO,
+                Context.MODE_PRIVATE);
+
+        sugestao = shared.getBoolean(SUGESTAO, sugestao);
+        tituloSugestao = shared.getString(TITULO, tituloSugestao);
+        cbSugestao.setChecked(sugestao);
+        editTextTitulo.setText(tituloSugestao);
     }
 
     @Override
