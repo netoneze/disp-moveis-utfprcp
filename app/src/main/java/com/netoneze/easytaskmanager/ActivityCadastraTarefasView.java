@@ -78,19 +78,16 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
                 }
             }
 
-            switch (periodo){
-                case "Manhã":
-                    radioGroupPeriodo.check(R.id.radioButtonPeriodoManha);
-                    break;
-                case "Tarde":
-                    radioGroupPeriodo.check(R.id.radioButtonPeriodoTarde);
-                    break;
-                case "Noite":
-                    radioGroupPeriodo.check(R.id.radioButtonPeriodoNoite);
-                    break;
-                default:
-                    radioGroupPeriodo.clearCheck();
+            if (periodo.equals(getString(R.string.periodoManha))){
+                radioGroupPeriodo.check(R.id.radioButtonPeriodoManha);
+            } else if (periodo.equals(getString(R.string.periodoTarde))){
+                radioGroupPeriodo.check(R.id.radioButtonPeriodoTarde);
+            } else if (periodo.equals(getString(R.string.periodoNoite))){
+                radioGroupPeriodo.check(R.id.radioButtonPeriodoNoite);
+            } else {
+                radioGroupPeriodo.clearCheck();
             }
+
         }
     }
 
