@@ -195,9 +195,14 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
                 Context.MODE_PRIVATE);
 
         sugestao = shared.getBoolean(SUGESTAO, sugestao);
-        tituloSugestao = shared.getString(TITULO, tituloSugestao);
+
+        if (sugestao){
+            tituloSugestao = shared.getString(TITULO, tituloSugestao);
+            editTextTitulo.setText(tituloSugestao);
+        }
+
         cbSugestao.setChecked(sugestao);
-        editTextTitulo.setText(tituloSugestao);
+
     }
 
     @Override
