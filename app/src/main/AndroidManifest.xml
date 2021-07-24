@@ -31,6 +31,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.netoneze.easytaskmanager.ActivityListTarefasView" />
         </activity>
+        <activity
+            android:name=".ActivityMostrarTarefa"
+            android:parentActivityName="com.netoneze.easytaskmanager.ActivityListTarefasView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.netoneze.easytaskmanager.ActivityListTarefasView" />
+        </activity>
     </application>
 
 </manifest>

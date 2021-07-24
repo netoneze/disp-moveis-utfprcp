@@ -13,7 +13,6 @@
     <string name="periodoNoite">Night</string>
     <string name="prioridadeSpinner">Priority</string>
     <string name="radioButtonNaoSelecionado">No RadioButton Selected!</string>
-    <string name="mostrar">Show</string>
     <string name="salvar">Save</string>
     <string name="foi_clicado">Has been clicked!</string>
     <string name="prioridade_baixa">Low</string>
@@ -30,4 +29,6 @@
     <string name="editar">Edit</string>
     <string name="excluir">Delete</string>
     <string name="sugestao">Keep as sugestion</string>
+    <string name="mostrar">View</string>
+    <string name="informacaoTarefa">Task info</string>
 </resources>

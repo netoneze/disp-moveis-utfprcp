@@ -86,6 +86,27 @@ public class ActivityListTarefasView extends AppCompatActivity {
         startActivity(intentAutoria);
     }
 
+
+    public void vaiParaTelaDeMostrar(int posicao){
+        String titulo = adapter.getItem(posicao).getTitulo();
+        String local = adapter.getItem(posicao).getLocal();
+        String descricao = adapter.getItem(posicao).getDescricao();
+        String prioridade = adapter.getItem(posicao).getPrioridade();
+        String periodo = adapter.getItem(posicao).getPeriodo();
+        String data_tarefa = adapter.getItem(posicao).getData();
+
+        Intent intentMostrarTarefa = new Intent(this, ActivityMostrarTarefa.class);
+
+        intentMostrarTarefa.putExtra(TITULO, titulo);
+        intentMostrarTarefa.putExtra(LOCAL, local);
+        intentMostrarTarefa.putExtra(DESCRICAO, descricao);
+        intentMostrarTarefa.putExtra(PRIORIDADE, prioridade);
+        intentMostrarTarefa.putExtra(PERIODO, periodo);
+        intentMostrarTarefa.putExtra(DATA, data_tarefa);
+
+        startActivity(intentMostrarTarefa);
+    }
+
     public void adicionar(Bundle bundle){
 
         String titulo = bundle.getString(TITULO);
@@ -162,6 +183,10 @@ public class ActivityListTarefasView extends AppCompatActivity {
 
             case R.id.excluir_menu_item:
                 excluir(info.position);
+                return true;
+
+            case R.id.mostrar_menu_item:
+                vaiParaTelaDeMostrar(info.position);
                 return true;
 
             default:

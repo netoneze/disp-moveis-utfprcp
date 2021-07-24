@@ -31,4 +31,5 @@
     <string name="editar">Editar</string>
     <string name="excluir">Excluir</string>
     <string name="sugestao">Manter como sugestão</string>
+    <string name="informacaoTarefa">Informações da Tarefa</string>
 </resources>
