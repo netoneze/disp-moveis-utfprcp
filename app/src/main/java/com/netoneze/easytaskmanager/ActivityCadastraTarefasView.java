@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ActivityCadastraTarefasView extends AppCompatActivity {
 
     private EditText editTextTitulo, editTextData, editTextLocal, editTextDescricao;
-    private CheckBox cbDiaInteiro, cbSugestao;
+    private CheckBox cbSugestao;
     private RadioGroup radioGroupPeriodo;
     private Spinner spinnerPrioridade;
     private String tituloSugestao = "";
@@ -48,7 +48,6 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         editTextData = findViewById(R.id.editTextData);
         editTextLocal = findViewById(R.id.editTextOnde);
         editTextDescricao = findViewById(R.id.editTextDescricao);
-        cbDiaInteiro = findViewById(R.id.checkBoxDiaInteiro);
         cbSugestao = findViewById(R.id.checkBoxSugestao);
         radioGroupPeriodo = findViewById(R.id.radioGroupPeriodo);
         spinnerPrioridade = findViewById(R.id.spinnerPrioridade);
@@ -96,7 +95,6 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         editTextData.setText(null);
         editTextLocal.setText(null);
         editTextDescricao.setText(null);
-        cbDiaInteiro.setChecked(false);
         editTextTitulo.requestFocus();
         radioGroupPeriodo.clearCheck();
         Toast.makeText(this,
@@ -122,11 +120,11 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         String data = editTextData.getText().toString();
         String local = editTextLocal.getText().toString();
         String descricao = editTextDescricao.getText().toString();
-        Boolean checkBoxDiaInteiro = cbDiaInteiro.isChecked();
         int radioGroupPeriodoId = radioGroupPeriodo.getCheckedRadioButtonId();
         String radioGroupPeriodo = "";
         String spinner = spinnerPrioridade.getSelectedItem().toString();
         salvarPreferenciaSugestao(cbSugestao.isChecked(), titulo);
+
         if (titulo == null || titulo.trim().isEmpty() ||
                 data == null || data.trim().isEmpty() ||
                 local == null || local.trim().isEmpty() ||
@@ -161,7 +159,6 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         intentListagem.putExtra(ActivityListTarefasView.LOCAL, local);
         intentListagem.putExtra(ActivityListTarefasView.DESCRICAO, descricao);
         intentListagem.putExtra(ActivityListTarefasView.PRIORIDADE, spinner);
-        intentListagem.putExtra(ActivityListTarefasView.DIA_TODO, checkBoxDiaInteiro);
         intentListagem.putExtra(ActivityListTarefasView.PERIODO, radioGroupPeriodo);
 
         setResult(Activity.RESULT_OK, intentListagem);

@@ -25,7 +25,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
     public static final String PRIORIDADE = "PRIORIDADE";
     public static final String PERIODO = "PERIODO";
     public static final String DATA = "DATA";
-    public static final String DIA_TODO = "DIA_TODO";
     public static final int PEDIR_CADASTRO = 1;
     public static final int ALTERAR_CADASTRO = 2;
     public int posic = -1;
@@ -95,7 +94,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
         String prioridade = bundle.getString(PRIORIDADE);
         String periodo = bundle.getString(PERIODO);
         String data_tarefa = bundle.getString(DATA);
-        String dia_todo = bundle.getString(DIA_TODO);
 
         this.tarefas.add(new Tarefa(titulo, local, descricao, prioridade, periodo, data_tarefa));
 
@@ -111,7 +109,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
         String prioridade = bundle.getString(PRIORIDADE);
         String periodo = bundle.getString(PERIODO);
         String data_tarefa = bundle.getString(DATA);
-        String dia_todo = bundle.getString(DIA_TODO);
 
         this.tarefas.remove(posicao);
         this.tarefas.add(posicao, new Tarefa(titulo, local, descricao, prioridade, periodo, data_tarefa));
