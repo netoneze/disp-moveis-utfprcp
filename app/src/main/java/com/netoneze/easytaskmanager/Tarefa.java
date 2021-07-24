@@ -73,10 +73,6 @@ public class Tarefa {
     @Override
     public String toString() {
         return getTitulo() + "\n" +
-                getLocal() + "\n" +
-                getDescricao() + "\n" +
-                getPrioridade() + "\n" +
-                getPeriodo() + "\n" +
                 getData();
     }
 }
