@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 public class Tarefa {
 
+    private long id;
     private String titulo;
     private String local;
     private String descricao;
@@ -69,10 +70,20 @@ public class Tarefa {
         this.data = data;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @NonNull
     @Override
     public String toString() {
         return getTitulo() + "\n" +
                 getData();
     }
+
+
 }
