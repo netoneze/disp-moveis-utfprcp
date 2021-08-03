@@ -122,7 +122,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         String descricao = editTextDescricao.getText().toString();
         int radioGroupPeriodoId = radioGroupPeriodo.getCheckedRadioButtonId();
         String radioGroupPeriodo = "";
-        String spinner = spinnerPrioridade.getSelectedItem().toString();
+        String prioridade = spinnerPrioridade.getSelectedItem().toString();
         salvarPreferenciaSugestao(cbSugestao.isChecked(), titulo);
 
         if (titulo == null || titulo.trim().isEmpty() ||
@@ -154,12 +154,11 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
 
         Intent intentListagem = new Intent(this, ActivityListTarefasView.class);
 
-        intentListagem.putExtra(ActivityListTarefasView.TITULO, titulo);
-        intentListagem.putExtra(ActivityListTarefasView.DATA, data);
-        intentListagem.putExtra(ActivityListTarefasView.LOCAL, local);
-        intentListagem.putExtra(ActivityListTarefasView.DESCRICAO, descricao);
-        intentListagem.putExtra(ActivityListTarefasView.PRIORIDADE, spinner);
-        intentListagem.putExtra(ActivityListTarefasView.PERIODO, radioGroupPeriodo);
+        TarefasDatabase database = TarefasDatabase.getDatabase(this);
+
+        Tarefa tarefa = new Tarefa(titulo, local, descricao, prioridade, radioGroupPeriodo, data);
+
+        database.tarefaDao().insert(tarefa);
 
         setResult(Activity.RESULT_OK, intentListagem);
 
