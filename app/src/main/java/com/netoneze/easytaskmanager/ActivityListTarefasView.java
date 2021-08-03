@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityListTarefasView extends AppCompatActivity {
 
@@ -48,10 +49,13 @@ public class ActivityListTarefasView extends AppCompatActivity {
     }
 
     public void populaLista(){
-        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tarefas);
+        TarefasDatabase database = TarefasDatabase.getDatabase(this);
+
+        List<Tarefa> lista = database.tarefaDao().queryAll();
+
+        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lista);
 
         listViewTarefas.setAdapter(adapter);
-
     }
 
     public void vaiParaTelaDeCadastro(MenuItem item){
@@ -107,21 +111,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
         startActivity(intentMostrarTarefa);
     }
 
-    public void adicionar(Bundle bundle){
-
-        String titulo = bundle.getString(TITULO);
-        String local = bundle.getString(LOCAL);
-        String descricao = bundle.getString(DESCRICAO);
-        String prioridade = bundle.getString(PRIORIDADE);
-        String periodo = bundle.getString(PERIODO);
-        String data_tarefa = bundle.getString(DATA);
-
-        this.tarefas.add(new Tarefa(titulo, local, descricao, prioridade, periodo, data_tarefa));
-
-        this.adapter.notifyDataSetChanged();
-
-    }
-
     public void alterar(int posicao, Bundle bundle){
 
         String titulo = bundle.getString(TITULO);
@@ -148,12 +137,7 @@ public class ActivityListTarefasView extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == PEDIR_CADASTRO && resultCode == RESULT_OK){
-            assert data != null;
-            Bundle bundle = data.getExtras();
-
-            if(bundle != null) {
-                adicionar(bundle);
-            }
+            populaLista();
         }
         if (requestCode == ALTERAR_CADASTRO && resultCode == RESULT_OK){
             assert data != null;
