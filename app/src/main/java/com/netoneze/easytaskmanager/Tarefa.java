@@ -1,15 +1,26 @@
 package com.netoneze.easytaskmanager;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import androidx.annotation.NonNull;
 
+@Entity
 public class Tarefa {
 
+    @PrimaryKey(autoGenerate = true)
     private long id;
+    @NonNull
     private String titulo;
+    @NonNull
     private String local;
+    @NonNull
     private String descricao;
+    @NonNull
     private String prioridade;
+    @NonNull
     private String periodo;
+    @NonNull
     private String data;
 
 
