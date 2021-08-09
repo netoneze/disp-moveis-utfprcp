@@ -19,6 +19,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.netoneze.easytaskmanager.modelo.Tarefa;
+import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 
 import java.util.ArrayList;
 

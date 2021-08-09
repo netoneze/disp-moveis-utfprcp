@@ -1,4 +1,4 @@
-package com.netoneze.easytaskmanager;
+package com.netoneze.easytaskmanager.persistencia;
 
 import android.content.Context;
 

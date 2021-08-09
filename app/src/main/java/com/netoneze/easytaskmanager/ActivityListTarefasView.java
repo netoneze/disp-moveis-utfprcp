@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.netoneze.easytaskmanager.modelo.Tarefa;
+import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
