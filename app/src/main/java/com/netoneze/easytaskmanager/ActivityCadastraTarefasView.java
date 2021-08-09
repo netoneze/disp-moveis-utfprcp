@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.netoneze.easytaskmanager.modelo.Tarefa;
+
 import java.util.ArrayList;
 
 public class ActivityCadastraTarefasView extends AppCompatActivity {

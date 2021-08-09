@@ -1,4 +1,4 @@
-package com.netoneze.easytaskmanager;
+package com.netoneze.easytaskmanager.modelo;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
