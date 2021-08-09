@@ -11,17 +11,17 @@ public class Tarefa {
     @PrimaryKey(autoGenerate = true)
     private long id;
     @NonNull
-    private String titulo;
+    private String titulo = "";
     @NonNull
-    private String local;
+    private String local = "";
     @NonNull
-    private String descricao;
+    private String descricao = "";
     @NonNull
-    private String prioridade;
+    private String prioridade = "";
     @NonNull
-    private String periodo;
+    private String periodo = "";
     @NonNull
-    private String data;
+    private String data = "";
 
 
     public Tarefa(String titulo, String local, String descricao, String prioridade, String periodo, String data) {
@@ -33,51 +33,57 @@ public class Tarefa {
         this.setData(data);
     }
 
+    @NonNull
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
+    public void setTitulo(@NonNull String titulo) {
         this.titulo = titulo;
     }
 
+    @NonNull
     public String getLocal() {
         return local;
     }
 
-    public void setLocal(String local) {
+    public void setLocal(@NonNull String local) {
         this.local = local;
     }
 
+    @NonNull
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(@NonNull String descricao) {
         this.descricao = descricao;
     }
 
+    @NonNull
     public String getPrioridade() {
         return prioridade;
     }
 
-    public void setPrioridade(String prioridade) {
+    public void setPrioridade(@NonNull String prioridade) {
         this.prioridade = prioridade;
     }
 
+    @NonNull
     public String getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(String periodo) {
+    public void setPeriodo(@NonNull String periodo) {
         this.periodo = periodo;
     }
 
+    @NonNull
     public String getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(@NonNull String data) {
         this.data = data;
     }
 
