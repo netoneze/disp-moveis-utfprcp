@@ -21,9 +21,12 @@ public interface TarefaDao {
     @Update
     void update(Tarefa tarefa);
 
-    @Query("SELECT * FROM tarefa WHERE id = :id")
+    @Query("SELECT * FROM tarefas WHERE id = :id")
     Tarefa queryForId(long id);
 
-    @Query("SELECT * FROM tarefa ORDER BY id ASC")
+    @Query("SELECT * FROM tarefas ORDER BY id ASC")
     List<Tarefa> queryAll();
+
+    @Query("SELECT count(*) FROM tarefas WHERE disciplinaId = :id LIMIT 1")
+    int queryForDisciplinaId(long id);
 }
