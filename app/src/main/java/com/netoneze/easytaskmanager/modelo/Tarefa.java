@@ -1,11 +1,14 @@
 package com.netoneze.easytaskmanager.modelo;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import androidx.annotation.NonNull;
 
-@Entity
+@Entity(tableName = "tarefas",
+        foreignKeys = @ForeignKey(entity = Disciplina.class, parentColumns = "id", childColumns = "disciplinaId"))
 public class Tarefa {
 
     @PrimaryKey(autoGenerate = true)
@@ -22,7 +25,8 @@ public class Tarefa {
     private String periodo = "";
     @NonNull
     private String data = "";
-
+    @ColumnInfo(index = true)
+    private int disciplinaId;
 
     public Tarefa(String titulo, String local, String descricao, String prioridade, String periodo, String data) {
         this.setTitulo(titulo);
@@ -93,6 +97,14 @@ public class Tarefa {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getDisciplinaId() {
+        return disciplinaId;
+    }
+
+    public void setDisciplinaId(int disciplinaId) {
+        this.disciplinaId = disciplinaId;
     }
 
     @NonNull
