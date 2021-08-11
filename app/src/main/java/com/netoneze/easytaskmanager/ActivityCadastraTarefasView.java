@@ -34,6 +34,8 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
     private String tituloSugestao = "";
     private List<Disciplina> listaDisciplinas;
     private boolean sugestao = false;
+    private int idTarefa;
+    private int modo;
     private static final String SUGESTAO = "SUGESTAO";
     private static final String TITULO = "TITULO";
     private static final String ARQUIVO =
@@ -67,12 +69,17 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null){
-            String titulo = bundle.getString(ActivityListTarefasView.TITULO);
-            String local = bundle.getString(ActivityListTarefasView.LOCAL);
-            String descricao = bundle.getString(ActivityListTarefasView.DESCRICAO);
-            String prioridade = bundle.getString(ActivityListTarefasView.PRIORIDADE);
-            String periodo = bundle.getString(ActivityListTarefasView.PERIODO);
-            String data_tarefa = bundle.getString(ActivityListTarefasView.DATA);
+            TarefasDatabase database = TarefasDatabase.getDatabase(this);
+            Tarefa tarefaDoBd = database.tarefaDao().queryForId(Long.parseLong(String.valueOf(bundle.getInt(ActivityListTarefasView.ID))));
+
+            idTarefa = bundle.getInt(ActivityListTarefasView.ID);
+
+            String titulo = tarefaDoBd.getTitulo();
+            String local = tarefaDoBd.getLocal();
+            String descricao = tarefaDoBd.getDescricao();
+            String prioridade = tarefaDoBd.getPrioridade();
+            String periodo = tarefaDoBd.getPeriodo();
+            String data_tarefa = tarefaDoBd.getData();
 
             editTextTitulo.setText(titulo);
             editTextLocal.setText(local);
@@ -82,6 +89,12 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
             for(int i = 0 ; i < spinnerPrioridade.getAdapter().getCount() ; i++){
                 if (spinnerPrioridade.getItemAtPosition(i).toString().equals(prioridade)){
                     spinnerPrioridade.setSelection(i);
+                }
+            }
+
+            for(int i = 0 ; i < spinnerDisciplina.getAdapter().getCount() ; i++){
+                if ((spinnerDisciplina.getSelectedItemPosition() + 1) == tarefaDoBd.getDisciplinaId()){
+                    spinnerDisciplina.setSelection(i);
                 }
             }
 
@@ -95,6 +108,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
                 radioGroupPeriodo.clearCheck();
             }
 
+            modo = bundle.getInt(ActivityListTarefasView.MODO);
         }
     }
 
@@ -171,10 +185,15 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
             tarefa.setDisciplinaId(disciplinaSpinner.getId());
         }
 
-        database.tarefaDao().insert(tarefa);
+        if (modo == 2){
+            tarefa.setId(idTarefa);
+            database.tarefaDao().update(tarefa);
 
+        } else {
+            database.tarefaDao().insert(tarefa);
+
+        }
         setResult(Activity.RESULT_OK, intentListagem);
-
         finish();
     }
 
