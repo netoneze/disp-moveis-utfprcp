@@ -37,7 +37,7 @@ public class ActivityListTarefasView extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_view);
+        setContentView(R.layout.activity_list_tarefas_view);
 
         listViewTarefas = findViewById(R.id.listViewTarefas);
 
@@ -112,6 +112,12 @@ public class ActivityListTarefasView extends AppCompatActivity {
         intentMostrarTarefa.putExtra(DATA, data_tarefa);
 
         startActivity(intentMostrarTarefa);
+    }
+
+    public void vaiParaTelaDeDisciplinas(MenuItem item){
+        Intent intentDisciplina = new Intent(this, ActivityListDisciplinasView.class);
+
+        startActivity(intentDisciplina);
     }
 
     public void alterar(int posicao, Bundle bundle){
@@ -196,15 +202,4 @@ public class ActivityListTarefasView extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.adicionar_botao_menu) {
-            vaiParaTelaDeAutoria(this.findViewById(R.id.content_frame));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

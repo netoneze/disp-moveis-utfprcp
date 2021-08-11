@@ -18,18 +18,21 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.netoneze.easytaskmanager.modelo.Disciplina;
 import com.netoneze.easytaskmanager.modelo.Tarefa;
 import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityCadastraTarefasView extends AppCompatActivity {
 
     private EditText editTextTitulo, editTextData, editTextLocal, editTextDescricao;
     private CheckBox cbSugestao;
     private RadioGroup radioGroupPeriodo;
-    private Spinner spinnerPrioridade;
+    private Spinner spinnerPrioridade, spinnerDisciplina;
     private String tituloSugestao = "";
+    private List<Disciplina> listaDisciplinas;
     private boolean sugestao = false;
     private static final String SUGESTAO = "SUGESTAO";
     private static final String TITULO = "TITULO";
@@ -54,10 +57,12 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         cbSugestao = findViewById(R.id.checkBoxSugestao);
         radioGroupPeriodo = findViewById(R.id.radioGroupPeriodo);
         spinnerPrioridade = findViewById(R.id.spinnerPrioridade);
+        spinnerDisciplina = findViewById(R.id.spinnerDisciplina);
 
         lerPreferenciaSugestao();
 
         populaSpinner();
+        carregaDisciplinas();
 
         Bundle bundle = getIntent().getExtras();
 
@@ -161,6 +166,11 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
 
         Tarefa tarefa = new Tarefa(titulo, local, descricao, prioridade, radioGroupPeriodo, data);
 
+        Disciplina disciplinaSpinner = (Disciplina) spinnerDisciplina.getSelectedItem();
+        if (disciplinaSpinner != null){
+            tarefa.setDisciplinaId(disciplinaSpinner.getId());
+        }
+
         database.tarefaDao().insert(tarefa);
 
         setResult(Activity.RESULT_OK, intentListagem);
@@ -204,6 +214,20 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         }
 
         cbSugestao.setChecked(sugestao);
+
+    }
+
+    public void carregaDisciplinas(){
+        TarefasDatabase database = TarefasDatabase.getDatabase(this);
+
+        listaDisciplinas = database.disciplinaDao().queryAll();
+
+        ArrayAdapter<Disciplina> spinnerAdapter =
+                new ArrayAdapter<>(this,
+                        android.R.layout.simple_list_item_1,
+                        listaDisciplinas);
+
+        spinnerDisciplina.setAdapter(spinnerAdapter);
 
     }
 

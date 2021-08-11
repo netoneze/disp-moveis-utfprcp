@@ -12,6 +12,7 @@ import com.netoneze.easytaskmanager.modelo.Tarefa;
 @Database(entities = {Tarefa.class, Disciplina.class}, version = 2, exportSchema = false)
 public abstract class TarefasDatabase extends RoomDatabase {
     public abstract TarefaDao tarefaDao();
+    public abstract DisciplinaDao disciplinaDao();
 
     private static TarefasDatabase instance;
 

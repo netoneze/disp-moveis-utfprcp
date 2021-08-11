@@ -32,4 +32,6 @@
     <string name="excluir">Excluir</string>
     <string name="sugestao">Manter como sugestão</string>
     <string name="informacaoTarefa">Informações da Tarefa</string>
+    <string name="disciplina">Disciplina</string>
+    <string name="cadastrar_disciplina">Adicionar Disciplina</string>
 </resources>

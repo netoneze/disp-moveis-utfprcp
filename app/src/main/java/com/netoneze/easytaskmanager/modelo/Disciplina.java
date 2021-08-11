@@ -15,8 +15,7 @@ public class Disciplina {
     @NonNull
     private String titulo = "";
 
-    public Disciplina(int id, String titulo){
-        setId(id);
+    public Disciplina(String titulo){
         setTitulo(titulo);
     }
 
@@ -33,7 +32,13 @@ public class Disciplina {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
+    public void setTitulo(@NonNull String titulo) {
         this.titulo = titulo;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getTitulo();
     }
 }

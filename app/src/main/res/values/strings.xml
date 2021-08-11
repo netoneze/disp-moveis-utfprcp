@@ -31,4 +31,6 @@
     <string name="sugestao">Keep as sugestion</string>
     <string name="mostrar">View</string>
     <string name="informacaoTarefa">Task info</string>
+    <string name="disciplina">Subject</string>
+    <string name="cadastrar_disciplina">Add Subject</string>
 </resources>
