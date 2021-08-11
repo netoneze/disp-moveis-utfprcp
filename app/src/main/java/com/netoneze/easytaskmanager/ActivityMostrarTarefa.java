@@ -6,9 +6,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.netoneze.easytaskmanager.modelo.Disciplina;
+import com.netoneze.easytaskmanager.modelo.Tarefa;
+import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
+
 public class ActivityMostrarTarefa extends AppCompatActivity {
 
-    private TextView textViewTitulo, textViewLocal, textViewDescricao, textViewPrioridade, textViewPeriodo, textViewDataTarefa;
+    private TextView textViewTitulo, textViewLocal, textViewDescricao, textViewPrioridade, textViewPeriodo, textViewDataTarefa, textViewDisciplina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +31,23 @@ public class ActivityMostrarTarefa extends AppCompatActivity {
         textViewPrioridade = findViewById(R.id.textViewPrioridadeMostrarConteudo);
         textViewPeriodo = findViewById(R.id.textViewPeriodoMostrarConteudo);
         textViewDataTarefa = findViewById(R.id.textViewDataMostrarConteudo);
+        textViewDisciplina = findViewById(R.id.textViewDisciplinaMostrarConteudo);
 
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null){
-            String titulo = bundle.getString(ActivityListTarefasView.TITULO);
-            String local = bundle.getString(ActivityListTarefasView.LOCAL);
-            String descricao = bundle.getString(ActivityListTarefasView.DESCRICAO);
-            String prioridade = bundle.getString(ActivityListTarefasView.PRIORIDADE);
-            String periodo = bundle.getString(ActivityListTarefasView.PERIODO);
-            String data_tarefa = bundle.getString(ActivityListTarefasView.DATA);
+            TarefasDatabase database = TarefasDatabase.getDatabase(this);
+
+            Tarefa tarefa = database.tarefaDao().queryForId(bundle.getInt(ActivityListTarefasView.ID));
+            Disciplina disciplina = database.disciplinaDao().queryForId(tarefa.getDisciplinaId());
+
+            String titulo = tarefa.getTitulo();
+            String local = tarefa.getLocal();
+            String descricao = tarefa.getDescricao();
+            String prioridade = tarefa.getPrioridade();
+            String periodo = tarefa.getPeriodo();
+            String data_tarefa = tarefa.getData();
+            String disciplina2 = disciplina.getTitulo();
 
             textViewTitulo.setText(titulo);
             textViewDescricao.setText(descricao);
@@ -45,6 +56,7 @@ public class ActivityMostrarTarefa extends AppCompatActivity {
             textViewPeriodo.setText(periodo);
             textViewTitulo.setText(titulo);
             textViewDataTarefa.setText(data_tarefa);
+            textViewDisciplina.setText(disciplina2);
         }
     }
 
