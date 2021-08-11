@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -19,6 +20,11 @@ import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 import java.util.List;
 
 public class ActivityListDisciplinasView extends AppCompatActivity {
+
+    public static final String ID = "ID";
+    public static final String MODO = "MODO";
+
+    public static final int ALTERAR_CADASTRO = 2;
 
     ListView listViewDisciplinas;
     private ArrayAdapter<Disciplina> adapter;
@@ -53,16 +59,36 @@ public class ActivityListDisciplinasView extends AppCompatActivity {
         listViewDisciplinas.setAdapter(adapter);
     }
 
+    private void excluirDisciplina(int posicao){
+        Disciplina disciplina = (Disciplina) listViewDisciplinas.getItemAtPosition(posicao);
+        TarefasDatabase database = TarefasDatabase.getDatabase(this);
+
+        database.disciplinaDao().delete(disciplina);
+        populaLista();
+    }
+
     public void vaiParaTelaDeCadastroDisciplina(MenuItem item){
         Intent intentCadastroDisciplina = new Intent(this, ActivityCadastraDisciplinasView.class);
 
         startActivityForResult(intentCadastroDisciplina, PEDIR_CADASTRO_DISCIPLINA);
     }
 
+    public void vaiParaTelaDeCadastroEditarDisciplina(int posicao){
+        Disciplina disciplina = (Disciplina) listViewDisciplinas.getItemAtPosition(posicao);
+        int id = disciplina.getId();
+
+        Intent intentAlterarCadastro = new Intent(this, ActivityCadastraDisciplinasView.class);
+
+        intentAlterarCadastro.putExtra(ID, id);
+        intentAlterarCadastro.putExtra(MODO, ALTERAR_CADASTRO);
+
+        startActivityForResult(intentAlterarCadastro, ALTERAR_CADASTRO);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == PEDIR_CADASTRO_DISCIPLINA && resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK){
             populaLista();
         }
 
@@ -84,4 +110,24 @@ public class ActivityListDisciplinasView extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info;
+
+        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch(item.getItemId()){
+
+            case R.id.editar_menu_item_disciplina:
+                vaiParaTelaDeCadastroEditarDisciplina(info.position);
+                return true;
+
+            case R.id.excluir_menu_disciplina:
+                excluirDisciplina(info.position);
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 }

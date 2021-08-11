@@ -18,6 +18,7 @@ import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 public class ActivityCadastraDisciplinasView extends AppCompatActivity {
 
     EditText editTextTituloDisciplina;
+    private int modo, idDisciplina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,20 @@ public class ActivityCadastraDisciplinasView extends AppCompatActivity {
         setTitle(getString(R.string.cadastrar_disciplina));
 
         editTextTituloDisciplina = findViewById(R.id.editTextTituloDisciplina);
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null){
+            TarefasDatabase database = TarefasDatabase.getDatabase(this);
+            Disciplina disciplinaDoBd = database.disciplinaDao().queryForId(Long.parseLong(String.valueOf(bundle.getInt(ActivityListDisciplinasView.ID))));
+
+            String titulo = disciplinaDoBd.getTitulo();
+
+            editTextTituloDisciplina.setText(titulo);
+
+            modo = bundle.getInt(ActivityListDisciplinasView.MODO);
+            idDisciplina = bundle.getInt(ActivityListDisciplinasView.ID);
+        }
     }
 
     public void limparCamposDisciplina(MenuItem item){
@@ -60,7 +75,12 @@ public class ActivityCadastraDisciplinasView extends AppCompatActivity {
 
         Disciplina disciplina = new Disciplina(titulo);
 
-        database.disciplinaDao().insert(disciplina);
+        if (modo == 2){
+            disciplina.setId(idDisciplina);
+            database.disciplinaDao().update(disciplina);
+        } else {
+            database.disciplinaDao().insert(disciplina);
+        }
 
         setResult(Activity.RESULT_OK, intentListagem);
 
