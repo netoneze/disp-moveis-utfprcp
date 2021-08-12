@@ -34,4 +34,8 @@
     <string name="informacaoTarefa">Informações da Tarefa</string>
     <string name="disciplina">Disciplina</string>
     <string name="cadastrar_disciplina">Adicionar Disciplina</string>
+    <string name="confirmacao">Confirmação</string>
+    <string name="sim">Sim</string>
+    <string name="deseja_realmente_apagar">Você realmente quer apagar?</string>
+    <string name="nao">Não</string>
 </resources>
