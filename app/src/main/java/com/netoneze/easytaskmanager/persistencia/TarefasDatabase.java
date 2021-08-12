@@ -26,7 +26,9 @@ public abstract class TarefasDatabase extends RoomDatabase {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context,
                             TarefasDatabase.class,
-                            "tarefas.db").allowMainThreadQueries().build();
+                            "tarefas.db").allowMainThreadQueries()
+                            .fallbackToDestructiveMigration()
+                            .build();
                 }
             }
         }
