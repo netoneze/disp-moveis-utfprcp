@@ -41,4 +41,5 @@
     <string name="aviso">Alerta</string>
     <string name="ok">Okay</string>
     <string name="sem_disciplina">Não existem disciplinas, adicione uma por favor</string>
+    <string name="delecao_cascata">Existem tarefas que também serão exluidas, continuar?</string>
 </resources>

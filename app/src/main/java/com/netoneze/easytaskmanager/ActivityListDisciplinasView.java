@@ -64,9 +64,15 @@ public class ActivityListDisciplinasView extends AppCompatActivity {
     private void excluirDisciplina(int posicao){
         Disciplina disciplina = (Disciplina) listViewDisciplinas.getItemAtPosition(posicao);
         TarefasDatabase database = TarefasDatabase.getDatabase(this);
+        String mensagem = "";
 
-        String mensagem = getString(R.string.deseja_realmente_apagar)
-                + "\n" + disciplina.getTitulo();
+        if(database.tarefaDao().queryForDisciplinaId(disciplina.getId()) > 0){
+            mensagem = getString(R.string.delecao_cascata)
+                    + "\n" + disciplina.getTitulo();
+        } else {
+            mensagem = getString(R.string.deseja_realmente_apagar)
+                    + "\n" + disciplina.getTitulo();
+        }
 
         DialogInterface.OnClickListener listener =
                 new DialogInterface.OnClickListener() {

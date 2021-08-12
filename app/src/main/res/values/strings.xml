@@ -40,5 +40,6 @@
     <string name="aviso">Alert</string>
     <string name="ok">Okay</string>
     <string name="sem_disciplina">There is no subjects, add one please</string>
+    <string name="delecao_cascata">There are tasks that also will be deleted, continue?</string>
 
 </resources>
