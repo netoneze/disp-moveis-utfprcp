@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,11 +38,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
         setContentView(R.layout.activity_list_tarefas_view);
 
         listViewTarefas = findViewById(R.id.listViewTarefas);
-
-        listViewTarefas.setOnItemClickListener((parent, view, position, id) -> {
-            Tarefa tarefa = (Tarefa) listViewTarefas.getItemAtPosition(position);
-            Toast.makeText(getApplicationContext(), tarefa.getTitulo() + getString(R.string.foi_clicado), Toast.LENGTH_LONG).show();
-        });
 
         registerForContextMenu(listViewTarefas);
 
