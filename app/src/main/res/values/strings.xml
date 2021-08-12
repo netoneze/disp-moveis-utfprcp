@@ -37,5 +37,8 @@
     <string name="sim">Yes</string>
     <string name="nao">No</string>
     <string name="deseja_realmente_apagar">Do you really want to delete?</string>
+    <string name="aviso">Alert</string>
+    <string name="ok">Okay</string>
+    <string name="sem_disciplina">There is no subjects, add one please</string>
 
 </resources>

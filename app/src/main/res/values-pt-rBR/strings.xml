@@ -38,4 +38,7 @@
     <string name="sim">Sim</string>
     <string name="deseja_realmente_apagar">Você realmente quer apagar?</string>
     <string name="nao">Não</string>
+    <string name="aviso">Alerta</string>
+    <string name="ok">Okay</string>
+    <string name="sem_disciplina">Não existem disciplinas, adicione uma por favor</string>
 </resources>
