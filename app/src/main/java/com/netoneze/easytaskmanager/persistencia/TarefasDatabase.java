@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 import com.netoneze.easytaskmanager.modelo.Disciplina;
 import com.netoneze.easytaskmanager.modelo.Tarefa;
 
-@Database(entities = {Tarefa.class, Disciplina.class}, version = 2, exportSchema = false)
+@Database(entities = {Tarefa.class, Disciplina.class}, version = 3, exportSchema = false)
 @TypeConverters({ConversorData.class})
 public abstract class TarefasDatabase extends RoomDatabase {
     public abstract TarefaDao tarefaDao();
