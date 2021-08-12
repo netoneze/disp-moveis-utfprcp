@@ -1,5 +1,7 @@
 package com.netoneze.easytaskmanager.modelo;
 
+import static androidx.room.ForeignKey.CASCADE;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -11,7 +13,7 @@ import com.netoneze.easytaskmanager.Utils.UtilsDate;
 import java.util.Date;
 
 @Entity(tableName = "tarefas",
-        foreignKeys = @ForeignKey(entity = Disciplina.class, parentColumns = "id", childColumns = "disciplinaId"))
+        foreignKeys = @ForeignKey(entity = Disciplina.class, parentColumns = "id", childColumns = "disciplinaId", onDelete = CASCADE))
 public class Tarefa {
 
     @PrimaryKey(autoGenerate = true)
