@@ -1,11 +1,14 @@
 package com.netoneze.easytaskmanager.modelo;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import androidx.annotation.NonNull;
+import com.netoneze.easytaskmanager.Utils.UtilsDate;
+
+import java.util.Date;
 
 @Entity(tableName = "tarefas",
         foreignKeys = @ForeignKey(entity = Disciplina.class, parentColumns = "id", childColumns = "disciplinaId"))
@@ -24,11 +27,11 @@ public class Tarefa {
     @NonNull
     private String periodo = "";
     @NonNull
-    private String data = "";
+    private Date data;
     @ColumnInfo(index = true)
     private int disciplinaId;
 
-    public Tarefa(String titulo, String local, String descricao, String prioridade, String periodo, String data) {
+    public Tarefa(String titulo, String local, String descricao, String prioridade, String periodo, Date data) {
         this.setTitulo(titulo);
         this.setLocal(local);
         this.setDescricao(descricao);
@@ -83,11 +86,11 @@ public class Tarefa {
     }
 
     @NonNull
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(@NonNull String data) {
+    public void setData(@NonNull Date data) {
         this.data = data;
     }
 
@@ -111,7 +114,7 @@ public class Tarefa {
     @Override
     public String toString() {
         return getTitulo() + "\n" +
-                getData();
+                UtilsDate.formatDate(getData());
     }
 
 
