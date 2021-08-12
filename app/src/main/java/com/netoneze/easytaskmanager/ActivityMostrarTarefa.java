@@ -6,9 +6,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.netoneze.easytaskmanager.Utils.UtilsDate;
 import com.netoneze.easytaskmanager.modelo.Disciplina;
 import com.netoneze.easytaskmanager.modelo.Tarefa;
 import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
+
+import java.util.Date;
 
 public class ActivityMostrarTarefa extends AppCompatActivity {
 
@@ -46,7 +49,7 @@ public class ActivityMostrarTarefa extends AppCompatActivity {
             String descricao = tarefa.getDescricao();
             String prioridade = tarefa.getPrioridade();
             String periodo = tarefa.getPeriodo();
-            String data_tarefa = tarefa.getData();
+            Date data_tarefa = tarefa.getData();
             String disciplina2 = disciplina.getTitulo();
 
             textViewTitulo.setText(titulo);
@@ -55,7 +58,7 @@ public class ActivityMostrarTarefa extends AppCompatActivity {
             textViewPrioridade.setText(prioridade);
             textViewPeriodo.setText(periodo);
             textViewTitulo.setText(titulo);
-            textViewDataTarefa.setText(data_tarefa);
+            textViewDataTarefa.setText(UtilsDate.formatDate(data_tarefa));
             textViewDisciplina.setText(disciplina2);
         }
     }

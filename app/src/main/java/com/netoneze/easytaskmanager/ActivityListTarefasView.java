@@ -1,5 +1,6 @@
 package com.netoneze.easytaskmanager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.netoneze.easytaskmanager.Utils.UtilsGUI;
 import com.netoneze.easytaskmanager.modelo.Tarefa;
 import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 
@@ -104,8 +106,30 @@ public class ActivityListTarefasView extends AppCompatActivity {
         Tarefa tarefa = (Tarefa) listViewTarefas.getItemAtPosition(posicao);
         TarefasDatabase database = TarefasDatabase.getDatabase(this);
 
-        database.tarefaDao().delete(tarefa);
-        populaLista();
+        String mensagem = getString(R.string.deseja_realmente_apagar)
+                + "\n" + tarefa.getTitulo();
+
+        DialogInterface.OnClickListener listener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        switch(which){
+                            case DialogInterface.BUTTON_POSITIVE:
+
+                                database.tarefaDao().delete(tarefa);
+
+                                populaLista();
+
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+
+        UtilsGUI.confirmaAcao(this, mensagem, listener);
     }
 
     @Override

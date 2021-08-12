@@ -1,5 +1,6 @@
 package com.netoneze.easytaskmanager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.netoneze.easytaskmanager.Utils.UtilsGUI;
 import com.netoneze.easytaskmanager.modelo.Disciplina;
 import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 
@@ -63,8 +65,29 @@ public class ActivityListDisciplinasView extends AppCompatActivity {
         Disciplina disciplina = (Disciplina) listViewDisciplinas.getItemAtPosition(posicao);
         TarefasDatabase database = TarefasDatabase.getDatabase(this);
 
-        database.disciplinaDao().delete(disciplina);
-        populaLista();
+        String mensagem = getString(R.string.deseja_realmente_apagar)
+                + "\n" + disciplina.getTitulo();
+
+        DialogInterface.OnClickListener listener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        switch(which){
+                            case DialogInterface.BUTTON_POSITIVE:
+
+                                database.disciplinaDao().delete(disciplina);
+                                populaLista();
+
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+
+        UtilsGUI.confirmaAcao(this, mensagem, listener);
     }
 
     public void vaiParaTelaDeCadastroDisciplina(MenuItem item){

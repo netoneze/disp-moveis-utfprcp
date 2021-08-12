@@ -1,6 +1,7 @@
 package com.netoneze.easytaskmanager;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,8 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -18,14 +21,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.netoneze.easytaskmanager.Utils.UtilsDate;
 import com.netoneze.easytaskmanager.modelo.Disciplina;
 import com.netoneze.easytaskmanager.modelo.Tarefa;
 import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-public class ActivityCadastraTarefasView extends AppCompatActivity {
+public class ActivityCadastraTarefasView extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private EditText editTextTitulo, editTextData, editTextLocal, editTextDescricao;
     private CheckBox cbSugestao;
@@ -36,6 +42,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
     private boolean sugestao = false;
     private int idTarefa;
     private int modo;
+    private Calendar calendarDataTarefa;
     private static final String SUGESTAO = "SUGESTAO";
     private static final String TITULO = "TITULO";
     private static final String ARQUIVO =
@@ -66,6 +73,33 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         populaSpinner();
         carregaDisciplinas();
 
+        calendarDataTarefa = Calendar.getInstance();
+        calendarDataTarefa.add(Calendar.MONTH, -
+                getResources().getInteger(R.integer.quantidadeMes));
+
+        editTextData.setFocusable(false);
+        editTextData.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                /* Para fazer o DatePicker aparecer em modo Spinner e não Calendar
+                   para SDKs iguais ou maiores que o API Level 21 foi utilizado um
+                   estilo customizado, que está na pasta values-v21.
+
+                   Versões anteriores já aparecem em modo Spinner por padrão.
+                 */
+                DatePickerDialog picker = new DatePickerDialog(ActivityCadastraTarefasView.this,
+                        R.style.CustomDatePickerDialogTheme,
+                        ActivityCadastraTarefasView.this,
+                        calendarDataTarefa.get(Calendar.YEAR),
+                        calendarDataTarefa.get(Calendar.MONTH),
+                        calendarDataTarefa.get(Calendar.DAY_OF_MONTH));
+
+                picker.show();
+            }
+        });
+
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null){
@@ -79,12 +113,12 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
             String descricao = tarefaDoBd.getDescricao();
             String prioridade = tarefaDoBd.getPrioridade();
             String periodo = tarefaDoBd.getPeriodo();
-            String data_tarefa = tarefaDoBd.getData();
+            Date data_tarefa = tarefaDoBd.getData();
 
             editTextTitulo.setText(titulo);
             editTextLocal.setText(local);
             editTextDescricao.setText(descricao);
-            editTextData.setText(data_tarefa);
+            editTextData.setText(UtilsDate.formatDate(data_tarefa));
 
             for(int i = 0 ; i < spinnerPrioridade.getAdapter().getCount() ; i++){
                 if (spinnerPrioridade.getItemAtPosition(i).toString().equals(prioridade)){
@@ -139,7 +173,8 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
 
     public void salvarConteudo(MenuItem item){
         String titulo = editTextTitulo.getText().toString();
-        String data = editTextData.getText().toString();
+        String dataTexto = editTextData.getText().toString();
+        Date data = calendarDataTarefa.getTime();
         String local = editTextLocal.getText().toString();
         String descricao = editTextDescricao.getText().toString();
         int radioGroupPeriodoId = radioGroupPeriodo.getCheckedRadioButtonId();
@@ -148,7 +183,7 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         salvarPreferenciaSugestao(cbSugestao.isChecked(), titulo);
 
         if (titulo == null || titulo.trim().isEmpty() ||
-                data == null || data.trim().isEmpty() ||
+                dataTexto == null || dataTexto.trim().isEmpty() ||
                 local == null || local.trim().isEmpty() ||
                 descricao == null || descricao.trim().isEmpty() ||
                 radioGroupPeriodoId == -1)
@@ -275,5 +310,14 @@ public class ActivityCadastraTarefasView extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        calendarDataTarefa.set(year, month, dayOfMonth);
+
+        String textoData = UtilsDate.formatDate(calendarDataTarefa.getTime());
+
+        editTextData.setText(textoData);
     }
 }
