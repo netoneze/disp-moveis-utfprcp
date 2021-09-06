@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -56,13 +55,9 @@ public class ActivityListTarefasView extends AppCompatActivity {
     }
 
     public void vaiParaTelaDeCadastro(View view){
-        if (verificaDisciplinas()) {
-            Intent intentCadastro = new Intent(this, ActivityCadastraTarefasView.class);
+        Intent intentCadastro = new Intent(this, ActivityCadastraTarefasView.class);
 
-            startActivityForResult(intentCadastro, PEDIR_CADASTRO);
-        } else {
-            Toast.makeText(getApplicationContext(),  getString(R.string.sem_disciplina), Toast.LENGTH_LONG).show();
-        }
+        startActivityForResult(intentCadastro, PEDIR_CADASTRO);
     }
 
     public void vaiParaTelaDeCadastroEditar(int posicao){
@@ -95,12 +90,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
         startActivity(intentMostrarTarefa);
     }
 
-    public void vaiParaTelaDeDisciplinas(MenuItem item){
-        Intent intentDisciplina = new Intent(this, ActivityListDisciplinasView.class);
-
-        startActivity(intentDisciplina);
-    }
-
     private void excluir(int posicao){
         Tarefa tarefa = (Tarefa) listViewTarefas.getItemAtPosition(posicao);
         TarefasDatabase database = TarefasDatabase.getDatabase(this);
@@ -129,12 +118,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
                 };
 
         UtilsGUI.confirmaAcao(this, mensagem, listener);
-    }
-
-    public boolean verificaDisciplinas(){
-        TarefasDatabase database = TarefasDatabase.getDatabase(this);
-        int total = database.disciplinaDao().total();
-        return total > 0;
     }
 
     @Override

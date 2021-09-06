@@ -26,7 +26,4 @@ public interface TarefaDao {
 
     @Query("SELECT * FROM tarefas ORDER BY id ASC")
     List<Tarefa> queryAll();
-
-    @Query("SELECT count(*) FROM tarefas WHERE disciplinaId = :id LIMIT 1")
-    int queryForDisciplinaId(long id);
 }

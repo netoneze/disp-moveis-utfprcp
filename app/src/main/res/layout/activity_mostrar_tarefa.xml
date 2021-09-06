@@ -115,7 +115,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/periodo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDisciplinaMostrarConteudo" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrioridadeMostrarConteudo" />
 
     <TextView
         android:id="@+id/textViewDataMostrar"
@@ -138,27 +138,5 @@
         android:text="@string/quando"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDataMostrar" />
-
-    <TextView
-        android:id="@+id/textViewDisciplinaMostrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/disciplina"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPrioridadeMostrarConteudo" />
-
-    <TextView
-        android:id="@+id/textViewDisciplinaMostrarConteudo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/disciplina"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDisciplinaMostrar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

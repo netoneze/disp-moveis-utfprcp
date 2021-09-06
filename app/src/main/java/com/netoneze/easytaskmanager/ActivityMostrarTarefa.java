@@ -7,7 +7,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.netoneze.easytaskmanager.Utils.UtilsDate;
-import com.netoneze.easytaskmanager.modelo.Disciplina;
 import com.netoneze.easytaskmanager.modelo.Tarefa;
 import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 
@@ -15,7 +14,7 @@ import java.util.Date;
 
 public class ActivityMostrarTarefa extends AppCompatActivity {
 
-    private TextView textViewTitulo, textViewLocal, textViewDescricao, textViewPrioridade, textViewPeriodo, textViewDataTarefa, textViewDisciplina;
+    private TextView textViewTitulo, textViewLocal, textViewDescricao, textViewPrioridade, textViewPeriodo, textViewDataTarefa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,6 @@ public class ActivityMostrarTarefa extends AppCompatActivity {
         textViewPrioridade = findViewById(R.id.textViewPrioridadeMostrarConteudo);
         textViewPeriodo = findViewById(R.id.textViewPeriodoMostrarConteudo);
         textViewDataTarefa = findViewById(R.id.textViewDataMostrarConteudo);
-        textViewDisciplina = findViewById(R.id.textViewDisciplinaMostrarConteudo);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -42,7 +40,6 @@ public class ActivityMostrarTarefa extends AppCompatActivity {
             TarefasDatabase database = TarefasDatabase.getDatabase(this);
 
             Tarefa tarefa = database.tarefaDao().queryForId(bundle.getInt(ActivityListTarefasView.ID));
-            Disciplina disciplina = database.disciplinaDao().queryForId(tarefa.getDisciplinaId());
 
             String titulo = tarefa.getTitulo();
             String local = tarefa.getLocal();
@@ -50,7 +47,6 @@ public class ActivityMostrarTarefa extends AppCompatActivity {
             String prioridade = tarefa.getPrioridade();
             String periodo = tarefa.getPeriodo();
             Date data_tarefa = tarefa.getData();
-            String disciplina2 = disciplina.getTitulo();
 
             textViewTitulo.setText(titulo);
             textViewDescricao.setText(descricao);
@@ -59,7 +55,6 @@ public class ActivityMostrarTarefa extends AppCompatActivity {
             textViewPeriodo.setText(periodo);
             textViewTitulo.setText(titulo);
             textViewDataTarefa.setText(UtilsDate.formatDate(data_tarefa));
-            textViewDisciplina.setText(disciplina2);
         }
     }
 

@@ -2,12 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/disciplina_botao_menu"
-        android:title="@string/disciplina"
-        app:showAsAction="never"
-        android:onClick="vaiParaTelaDeDisciplinas"/>
-
-    <item
         android:id="@+id/sobre_botao_menu"
         android:title="@string/sobre"
         app:showAsAction="never"

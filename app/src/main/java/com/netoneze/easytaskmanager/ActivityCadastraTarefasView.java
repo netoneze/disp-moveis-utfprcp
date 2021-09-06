@@ -22,23 +22,20 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.netoneze.easytaskmanager.Utils.UtilsDate;
-import com.netoneze.easytaskmanager.modelo.Disciplina;
 import com.netoneze.easytaskmanager.modelo.Tarefa;
 import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class ActivityCadastraTarefasView extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private EditText editTextTitulo, editTextData, editTextLocal, editTextDescricao;
     private CheckBox cbSugestao;
     private RadioGroup radioGroupPeriodo;
-    private Spinner spinnerPrioridade, spinnerDisciplina;
+    private Spinner spinnerPrioridade;
     private String tituloSugestao = "";
-    private List<Disciplina> listaDisciplinas;
     private boolean sugestao = false;
     private int idTarefa;
     private int modo;
@@ -66,12 +63,10 @@ public class ActivityCadastraTarefasView extends AppCompatActivity implements Da
         cbSugestao = findViewById(R.id.checkBoxSugestao);
         radioGroupPeriodo = findViewById(R.id.radioGroupPeriodo);
         spinnerPrioridade = findViewById(R.id.spinnerPrioridade);
-        spinnerDisciplina = findViewById(R.id.spinnerDisciplina);
 
         lerPreferenciaSugestao();
 
         populaSpinner();
-        carregaDisciplinas();
 
         calendarDataTarefa = Calendar.getInstance();
         calendarDataTarefa.add(Calendar.MONTH, -
@@ -123,12 +118,6 @@ public class ActivityCadastraTarefasView extends AppCompatActivity implements Da
             for(int i = 0 ; i < spinnerPrioridade.getAdapter().getCount() ; i++){
                 if (spinnerPrioridade.getItemAtPosition(i).toString().equals(prioridade)){
                     spinnerPrioridade.setSelection(i);
-                }
-            }
-
-            for(int i = 0 ; i < spinnerDisciplina.getAdapter().getCount() ; i++){
-                if ((spinnerDisciplina.getSelectedItemPosition() + 1) == tarefaDoBd.getDisciplinaId()){
-                    spinnerDisciplina.setSelection(i);
                 }
             }
 
@@ -215,10 +204,6 @@ public class ActivityCadastraTarefasView extends AppCompatActivity implements Da
 
         Tarefa tarefa = new Tarefa(titulo, local, descricao, prioridade, radioGroupPeriodo, data);
 
-        Disciplina disciplinaSpinner = (Disciplina) spinnerDisciplina.getSelectedItem();
-        if (disciplinaSpinner != null){
-            tarefa.setDisciplinaId(disciplinaSpinner.getId());
-        }
 
         if (modo == 2){
             tarefa.setId(idTarefa);
@@ -268,20 +253,6 @@ public class ActivityCadastraTarefasView extends AppCompatActivity implements Da
         }
 
         cbSugestao.setChecked(sugestao);
-
-    }
-
-    public void carregaDisciplinas(){
-        TarefasDatabase database = TarefasDatabase.getDatabase(this);
-
-        listaDisciplinas = database.disciplinaDao().queryAll();
-
-        ArrayAdapter<Disciplina> spinnerAdapter =
-                new ArrayAdapter<>(this,
-                        android.R.layout.simple_list_item_1,
-                        listaDisciplinas);
-
-        spinnerDisciplina.setAdapter(spinnerAdapter);
 
     }
 

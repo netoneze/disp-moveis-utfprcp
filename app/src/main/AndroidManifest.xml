@@ -37,20 +37,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.netoneze.easytaskmanager.ActivityListTarefasView" />
         </activity>
-        <activity
-            android:name=".ActivityListDisciplinasView"
-            android:parentActivityName=".ActivityListTarefasView">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.netoneze.easytaskmanager.ActivityListTarefasView" />
-        </activity>
-        <activity
-            android:name=".ActivityCadastraDisciplinasView"
-            android:parentActivityName=".ActivityListDisciplinasView">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.netoneze.easytaskmanager.ActivityListTarefasView" />
-        </activity>
 
     </application>
 
