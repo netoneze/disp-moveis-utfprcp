@@ -2,13 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/adicionar_botao_menu"
-        android:icon="@android:drawable/ic_input_add"
-        android:onClick="vaiParaTelaDeCadastro"
-        android:title="@string/adicionar"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/disciplina_botao_menu"
         android:title="@string/disciplina"
         app:showAsAction="never"
