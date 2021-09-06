@@ -55,7 +55,7 @@ public class ActivityListTarefasView extends AppCompatActivity {
         listViewTarefas.setAdapter(adapter);
     }
 
-    public void vaiParaTelaDeCadastro(MenuItem item){
+    public void vaiParaTelaDeCadastro(View view){
         if (verificaDisciplinas()) {
             Intent intentCadastro = new Intent(this, ActivityCadastraTarefasView.class);
 
