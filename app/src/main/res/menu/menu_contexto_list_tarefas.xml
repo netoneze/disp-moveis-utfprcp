@@ -3,11 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mostrar_menu_item"
-        android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/mostrar"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/editar_menu_item"
         android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/editar"

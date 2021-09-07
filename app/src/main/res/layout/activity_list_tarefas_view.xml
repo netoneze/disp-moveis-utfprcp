@@ -10,13 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/listViewTarefas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" >
-    </ListView>
+        <ExpandableListView
+            android:id="@+id/listViewTarefas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

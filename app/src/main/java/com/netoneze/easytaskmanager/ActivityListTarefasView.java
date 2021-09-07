@@ -8,22 +8,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.netoneze.easytaskmanager.Utils.AdapterListHome;
 import com.netoneze.easytaskmanager.Utils.UtilsGUI;
 import com.netoneze.easytaskmanager.modelo.Tarefa;
 import com.netoneze.easytaskmanager.persistencia.TarefasDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ActivityListTarefasView extends AppCompatActivity {
 
-    ListView listViewTarefas;
+    ExpandableListView listViewTarefas;
     public static final String ID = "ID";
     public static final String MODO = "MODO";
 
@@ -31,7 +31,6 @@ public class ActivityListTarefasView extends AppCompatActivity {
     public static final int ALTERAR_CADASTRO = 2;
     public int posic = -1;
     private final ArrayList<Tarefa> tarefas = new ArrayList<>();
-    private ArrayAdapter<Tarefa> adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +48,19 @@ public class ActivityListTarefasView extends AppCompatActivity {
 
         List<Tarefa> lista = database.tarefaDao().queryAll();
 
-        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lista);
+        List<String> lstGrupos = new ArrayList<>();
+
+        for (int i = 0 ; i < lista.size() ; i++){
+            lstGrupos.add(lista.get(i).getTitulo());
+        }
+
+        HashMap<String, List<Tarefa>> lstItensGrupo = new HashMap<>();
+
+        for (int i = 0 ; i < lista.size() ; i++){
+            lstItensGrupo.put(lstGrupos.get(i), lista.subList(i, i+1));
+        }
+
+        AdapterListHome adapter = new AdapterListHome(this, lstGrupos, lstItensGrupo);
 
         listViewTarefas.setAdapter(adapter);
     }
@@ -61,7 +72,7 @@ public class ActivityListTarefasView extends AppCompatActivity {
     }
 
     public void vaiParaTelaDeCadastroEditar(int posicao){
-        Tarefa tarefa = (Tarefa) listViewTarefas.getItemAtPosition(posicao);
+        Tarefa tarefa = (Tarefa) listViewTarefas.getExpandableListAdapter().getChild(posicao, 0);
         int id = (int) tarefa.getId();
 
         Intent intentAlterarCadastro = new Intent(this, ActivityCadastraTarefasView.class);
@@ -79,41 +90,27 @@ public class ActivityListTarefasView extends AppCompatActivity {
     }
 
 
-    public void vaiParaTelaDeMostrar(int posicao){
-        Tarefa tarefa = (Tarefa) listViewTarefas.getItemAtPosition(posicao);
-        int id = (int) tarefa.getId();
-
-        Intent intentMostrarTarefa = new Intent(this, ActivityMostrarTarefa.class);
-
-        intentMostrarTarefa.putExtra(ID, id);
-
-        startActivity(intentMostrarTarefa);
-    }
-
     private void excluir(int posicao){
-        Tarefa tarefa = (Tarefa) listViewTarefas.getItemAtPosition(posicao);
+        Tarefa tarefa = (Tarefa) listViewTarefas.getExpandableListAdapter().getChild(posicao, 0);
         TarefasDatabase database = TarefasDatabase.getDatabase(this);
 
         String mensagem = getString(R.string.deseja_realmente_apagar)
                 + "\n" + tarefa.getTitulo();
 
         DialogInterface.OnClickListener listener =
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                (dialog, which) -> {
 
-                        switch(which){
-                            case DialogInterface.BUTTON_POSITIVE:
+                    switch(which){
+                        case DialogInterface.BUTTON_POSITIVE:
 
-                                database.tarefaDao().delete(tarefa);
+                            database.tarefaDao().delete(tarefa);
 
-                                populaLista();
+                            populaLista();
 
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
 
-                                break;
-                        }
+                            break;
                     }
                 };
 
@@ -132,22 +129,25 @@ public class ActivityListTarefasView extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info;
+        ExpandableListView.ExpandableListContextMenuInfo info;
+        info = (ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo();
 
-        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int groupPos = 0;
+
+        int type = ExpandableListView.getPackedPositionType(info.packedPosition);
+        if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD)
+        {
+            groupPos = ExpandableListView.getPackedPositionGroup(info.packedPosition);
+        }
 
         switch(item.getItemId()){
 
             case R.id.editar_menu_item:
-                vaiParaTelaDeCadastroEditar(info.position);
+                vaiParaTelaDeCadastroEditar(groupPos);
                 return true;
 
             case R.id.excluir_menu_item:
-                excluir(info.position);
-                return true;
-
-            case R.id.mostrar_menu_item:
-                vaiParaTelaDeMostrar(info.position);
+                excluir(groupPos);
                 return true;
 
             default:
@@ -158,8 +158,16 @@ public class ActivityListTarefasView extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_contexto_list_tarefas, menu);
 
+        ExpandableListView.ExpandableListContextMenuInfo info;
+
+        info = (ExpandableListView.ExpandableListContextMenuInfo) menuInfo;
+
+        int type = ExpandableListView.getPackedPositionType(info.packedPosition);
+
+        if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+            inflater.inflate(R.menu.menu_contexto_list_tarefas, menu);
+        }
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
