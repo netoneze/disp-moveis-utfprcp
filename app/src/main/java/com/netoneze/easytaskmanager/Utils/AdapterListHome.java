@@ -103,12 +103,12 @@ public class AdapterListHome extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.item_grupo, null);
         }
 
-        TextView tvItem = (TextView) convertView.findViewById(R.id.tvItem);
-        TextView tvValor = (TextView) convertView.findViewById(R.id.tvValor);
+        TextView tfTitulo = convertView.findViewById(R.id.tfTituloCorpo);
+        TextView tfData = convertView.findViewById(R.id.tfDataCorpo);
 
         Tarefa tarefa = (Tarefa) getChild(groupPosition, childPosition);
-        tvItem.setText(tarefa.getTitulo());
-        tvValor.setText(UtilsDate.formatDate(tarefa.getData()));
+        tfTitulo.setText(tarefa.getTitulo());
+        tfData.setText(UtilsDate.formatDate(tarefa.getData()));
 
         return convertView;
     }
