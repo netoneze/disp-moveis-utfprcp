@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="260dp"
     android:background="#ff9b999a">
 
     <TextView
@@ -56,5 +56,105 @@
         android:textColor="@android:color/white"
         app:layout_constraintStart_toEndOf="@+id/tfData"
         app:layout_constraintTop_toBottomOf="@+id/tfTituloCorpo" />
+
+    <TextView
+        android:id="@+id/tfOnde"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/onde"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tfData" />
+
+    <TextView
+        android:id="@+id/tfOndeCorpo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
+        android:text="@string/onde"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toEndOf="@+id/tfOnde"
+        app:layout_constraintTop_toBottomOf="@+id/tfDataCorpo" />
+
+    <TextView
+        android:id="@+id/tfDescricao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/descricao"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tfOnde" />
+
+    <TextView
+        android:id="@+id/tfDescricaoCorpo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
+        android:text="@string/descricao"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toEndOf="@+id/tfDescricao"
+        app:layout_constraintTop_toBottomOf="@+id/tfOndeCorpo" />
+
+    <TextView
+        android:id="@+id/tfPrioridade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/prioridadeSpinner"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tfDescricao" />
+
+    <TextView
+        android:id="@+id/tfPrioridadeCorpo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/prioridadeSpinner"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toEndOf="@+id/tfPrioridade"
+        app:layout_constraintTop_toBottomOf="@+id/tfDescricaoCorpo" />
+
+    <TextView
+        android:id="@+id/tfPeriodo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="20dp"
+        android:text="@string/periodo"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tfPrioridade" />
+
+    <TextView
+        android:id="@+id/tfPeriodoCorpo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="20dp"
+        android:text="@string/periodo"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toEndOf="@+id/tfPeriodo"
+        app:layout_constraintTop_toBottomOf="@+id/tfPrioridadeCorpo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
